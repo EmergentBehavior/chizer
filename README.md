@@ -14,7 +14,7 @@ This threshold is defined by significance level, which is usually 5%. It means f
 at 5% rate.
 
 ## Evaluation
-1. First I used http://www.fourmilab.ch/random/ to files that created by https://github.com/Storj/RandomIO, 
+1.First I used http://www.fourmilab.ch/random/ to files that created by https://github.com/Storj/RandomIO, 
 and checked the chi square distribution were same as the one of this program. All values were matched.
 ```
 $ ./ent data/1f567965f3b034d819d035cbfa68f4b1 
@@ -29,16 +29,15 @@ would exceed this value 78.36 percent of the times.
 Arithmetic mean value of data bytes is 127.5081 (127.5 = random).
 Monte Carlo value for Pi is 3.148812595 (error 0.23 percent).
 Serial correlation coefficient is -0.001882 (totally uncorrelated = 0.0).
-
 ```
 
-data/1f567965f3b034d819d035cbfa68f4b1(500,000bytes):237.053952
-data/d0d5aadd2e49c38f52261d9b5a3e6d9a(1,00,000bytes):223.445504
-data/5167585a6f04f84378734a59249fc741 (3,000,000bytes):267.375104
-data/bbd39238d1e5368c95ade4554dae9712(5,000,000bytes):275.085312
-data/578419af524bc10e35a4aa27fee31b1b(10,000,000bytes):232.634829
+* data/1f567965f3b034d819d035cbfa68f4b1(500,000bytes):237.053952
+* data/d0d5aadd2e49c38f52261d9b5a3e6d9a(1,00,000bytes):223.445504
+* data/5167585a6f04f84378734a59249fc741 (3,000,000bytes):267.375104
+* data/bbd39238d1e5368c95ade4554dae9712(5,000,000bytes):275.085312
+* data/578419af524bc10e35a4aa27fee31b1b(10,000,000bytes):232.634829
 
-2. I ran this programs to above files, and all files were judged as encrypted.
+2.I ran this programs to above files, and all files were judged as encrypted.
 ```
 $ ./chi data/1f567965f3b034d819d035cbfa68f4b1 
 file size=500000 bytes
@@ -47,7 +46,7 @@ significance level:0.050000
 data/1f567965f3b034d819d035cbfa68f4b1 is encrypted.
 ```
 
-3. I ran this program to https://www.youtube.com/watch?v=vl3bUzfn2lg (Storj Promotion Video), and judged as
+3.I ran this program to https://www.youtube.com/watch?v=vl3bUzfn2lg (Storj Promotion Video), and judged as
 not encrypted.
 ```
 $./chi data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp4
@@ -57,7 +56,7 @@ significance level:0.000000
 data/Storj - Decentralizing Cloud Storage-vl3bUzfn2lg.mp4 is NOT encrypted.
 ```
 
-4. I gzipped above mp4, and ran this program, and judged as not encrpyted.
+4.I gzipped above mp4, and ran this program, and judged as not encrpyted.
 
 ```
 $ ./chi data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp4.gz 
@@ -66,8 +65,6 @@ Chi square distribution=3035.437162
 significance level:0.000000
 data/Storj - Decentralizing Cloud Storage-vl3bUzfn2lg.mp4.gz is NOT encrypted.
 ```
-
-
 
 ##Reference
 1. http://www.devttys0.com/2013/06/differentiate-encryption-from-compression-using-math/
