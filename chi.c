@@ -1,5 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
+
+#define DEBUG 1
+#define HIST_SIZE 256
+#define BUFFER_SIZE 65535
 
 typedef struct {
     char *message;
@@ -11,14 +16,9 @@ threshold criteria[]={
     {"is definitely encrpyted",219.025255,0.95}, 
     {"must be encrpyted",293.247835,0.05}, 
     {"maybe encrpyted",310.457388,0.01}, 
-    {"is not encrpyted",316.919385,0.05}, 
-    {"is not encrpyted",-1}  
+//    {"is not encrpyted",316.919385,0.005}, 
+    {"is not encrpyted",INT_MAX,0}  
 };
-
-#define HIST_SIZE 256
-#define BUFFER_SIZE 65535
-
-#define DEBUG 1
 
 typedef struct  {
     long data[HIST_SIZE];
@@ -62,21 +62,16 @@ histogram *getHist(char *fname,histogram *hist){
     return hist;
 }
 
-int judge(double chi){
-    int i=0;
-    for(i=0;i<4;i++){
-        if(chi<=criteria[i].value){
-            return i;
-        }
-    }
-    return i;
-}
-
 int judgeRank(char *fname){
     histogram hist;
     getHist(fname,&hist);
     double chi=calcChi(&hist);
-    int rank=judge(chi);
+    int rank=0;
+    for(rank=0;rank<4;rank++){
+        if(chi<=criteria[rank].value){
+            break;
+        }
+    }
 #ifdef DEBUG
     printf("file size=%ld bytes\n",hist.count);
     printf("Chi square distribution=%lf\n",chi);
