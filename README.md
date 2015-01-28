@@ -1,4 +1,4 @@
-#Determination of encrypted files by chi square distribution
+#Determination of encrypted files by chi square test
 
 ##Outline
 This is a program that determin specified file is encrypted or not. 
