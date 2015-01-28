@@ -1,21 +1,37 @@
-#Determination of encrypted files by chi square test
+#Determination of Encrypted Files by Chi Square Test
 
 ##Outline
-This is a program that determin specified file is encrypted or not. 
-Encrypted file has more random bytes than raw/compressed file. And randomness is measured by 
-http://en.wikipedia.org/wiki/Chi-square_test. Putting it simply, if a file has complete randome bytes,
-the expectation rate of occurence of data 0x00 is (total bytes)/255, because bytes is between 0 and 255.
+This is a program that determins specified file is encrypted or not. 
+Encrypted files have more random bytes than raw/compressed files. And randomness is measured by 
+http://en.wikipedia.org/wiki/Chi-square_test. Putting it simply, if a file has completely randome bytes,
+the expectation rate of occurence of data 0x00 is (total bytes)/256, because bytes are between 0 and 255.
 if this file will becomes less random, the rate will be far from this value. i.e. the value of
 ```math
 χ2=(observed-expected)2/expected
 ```
 will be bigger. So if χ2 is bigger than certain value, file can be judged as not random,i.e. not encrpyted.
-This threshold is defined by significance level, which is usually 5%. It means  files may be misjudged as not encrypted
+This threshold is defined by significance level, which is usually 5%. It means files may be misjudged as not encrypted
 at 5% rate.
 
 ## Evaluation
 1. First I used http://www.fourmilab.ch/random/ to files that created by https://github.com/Storj/RandomIO, 
-and checked the  chi square distribution were same as this program. All values were matched.
+and checked the chi square distribution were same as the one of this program. All values were matched.
+```
+$ ./ent data/1f567965f3b034d819d035cbfa68f4b1 
+Entropy = 7.999658 bits per byte.
+
+Optimum compression would reduce the size
+of this 500000 byte file by 0 percent.
+
+Chi square distribution for 500000 samples is 237.05, and randomly
+would exceed this value 78.36 percent of the times.
+
+Arithmetic mean value of data bytes is 127.5081 (127.5 = random).
+Monte Carlo value for Pi is 3.148812595 (error 0.23 percent).
+Serial correlation coefficient is -0.001882 (totally uncorrelated = 0.0).
+
+```
+
 data/1f567965f3b034d819d035cbfa68f4b1(500,000bytes):237.053952
 data/d0d5aadd2e49c38f52261d9b5a3e6d9a(1,00,000bytes):223.445504
 data/5167585a6f04f84378734a59249fc741 (3,000,000bytes):267.375104
@@ -41,7 +57,7 @@ significance level:0.000000
 data/Storj - Decentralizing Cloud Storage-vl3bUzfn2lg.mp4 is NOT encrypted.
 ```
 
-4. I gziped above mp4, and ran this program, and judged as not encrpyted.
+4. I gzipped above mp4, and ran this program, and judged as not encrpyted.
 
 ```
 $ ./chi data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp4.gz 
