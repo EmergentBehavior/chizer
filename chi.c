@@ -73,24 +73,24 @@ int judgeRank(char *fname){
         }
     }
 #ifdef DEBUG
-    printf("file size=%ld bytes\n",hist.count);
-    printf("Chi square distribution=%lf\n",chi);
-//    printf("%s %s.\n",fname,criteria[rank].message);
-    printf("significance level:%lf\n",criteria[rank].p);
+    printf("\tfile size=%ld bytes\n",hist.count);
+    printf("\tChi square distribution=%lf\n",chi);
+//    printf("\t%s.\n",criteria[rank].message);
+    printf("\tsignificance level:%lf\n",criteria[rank].p);
 #endif
     return rank;
 }
 
 int isEncrypted(char *fname){
-  return judgeRank(fname)<=1;
+  return judgeRank(fname)<=1; //p=0.05
 }
 
 
 int main(int argc,char *argv[]){
     if(isEncrypted(argv[1])){
-        printf("%s is encrypted.\n",argv[1]);
+        printf(";-) \tencrypted.\n");
     } else{
-        printf("%s is NOT encrypted.\n",argv[1]);
+        printf(":-( \tNOT encrypted.\n");
     }
     return EXIT_SUCCESS;
 }
