@@ -119,6 +119,21 @@ $./chi data.gz/1f567965f3b034d819d035cbfa68f4b1.gz
 
 ```
 
+##Performance
+
+result of 30MB file.
+```
+ time ./chi data/ac59ab5a282afd3de22062c7d62b5367 
+;-)     Whole File is encrypted.
+;-)     chunks are encrypted.
+
+real    0m1.404s
+user    0m1.337s
+sys     0m0.050s
+```
+at
+* kernel: Linux  3.18.4-1-ARCH #1 SMP PREEMPT Tue Jan 27 20:45:02 CET 2015 x86_64 GNU/Linux
+* CPU: AMD Athlon(tm) 64 X2 Dual Core Processor 3800+
 
 ##Reference
 1. http://www.devttys0.com/2013/06/differentiate-encryption-from-compression-using-math/
