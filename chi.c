@@ -1,62 +1,64 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <limits.h>
 
-//#define DEBUG 1
+#define DEBUG
+
 #define HIST_SIZE 256
-#define BUFFER_SIZE 32 //from article
+#define BUFFER_SIZE 65536
 
 #define THRESHOLD_FILE 293.247835 //p=0.05
+
+#define CHUNK_SIZE 32 //from article
 #define THRESHOLD_CHUNK 512 //from article
-
-typedef struct {
-    char *message;
-    double value;
-    double p;
-} threshold;
+#define THRESHOLD_SUSPECTS 5 //from article
 
 
-typedef struct  {
-    long data[HIST_SIZE];
-    long bytes;
-} histogram;
-
-double calcChi(histogram *hist){
-    double chi=0;
-    double expected=(double)hist->bytes/HIST_SIZE;
+void getHistogram(unsigned char *buffer, long* hist,int bytes){
     int i=0;
+    for(i=0;i<bytes;i++){
+      hist[buffer[i]]++;
+    }
+}
+
+double calcChi(long *hist,int bytes){
+    int i=0;
+    double chi=0;
+    double expected=(double)bytes/HIST_SIZE;
     for(i=0;i<HIST_SIZE;i++){
-        double diff=hist->data[i]-expected;
+        double diff=hist[i]-expected;
         chi+=(diff*diff)/expected;
     }
     return chi;
 }
 
-histogram *getHistogram(unsigned char *buffer,histogram *hist){
+int isFileEncrypted(char *fname){
+    FILE *fp=NULL;
     int i=0;
-    for(i=0;i<HIST_SIZE;i++){
-        hist->data[i]=0;
-    }
-    for(i=0;i<hist->bytes;i++){
-      hist->data[buffer[i]]++;
-    }
-    return hist;
-}
+    long hist[HIST_SIZE];
+    for(i=0;i<HIST_SIZE;i++) hist[i]=0;
 
-int isChunkEncrypted(unsigned char *buffer,int bytes){
-    histogram hist;
-    hist.bytes=bytes;
-    getHistogram(buffer,&hist);
-    double chi=calcChi(&hist);
-
+    if( (fp=fopen(fname,"rb"))==NULL){
+        fprintf(stderr,"cannot open %s\n",fname);
+        exit(EXIT_FAILURE);
+    }
+    unsigned char buffer[BUFFER_SIZE];
+    int bytes_read=0;
+    int bytes=0;
+    while( (bytes_read = fread(buffer, sizeof(unsigned char), BUFFER_SIZE, fp)) !=0){
+        bytes+=bytes_read;
+        getHistogram(buffer,hist,bytes_read);
+    }
+    double chi=calcChi(hist,bytes);
 #ifdef DEBUG
-    printf("\tchunk size=%ld bytes\n",hist.bytes);
     printf("\tChi square distribution=%lf\n",chi);
 #endif
-    return chi<THRESHOLD_CHUNK;
+    return chi < THRESHOLD_FILE;
 }
 
-int isFileEncrypted(char *fname){
+
+int isChunksEncrypted(char *fname){
+    int i=0;
+    int suspects=0;
     FILE *fp=NULL;
 
     if( (fp=fopen(fname,"rb"))==NULL){
@@ -65,34 +67,44 @@ int isFileEncrypted(char *fname){
     }
     unsigned char buffer[BUFFER_SIZE];
     int bytes_read=0;
-    int isEncrypted=1;
+    long hist[HIST_SIZE];
+
 #ifdef DEBUG
-   long loc=0;
+    FILE *fout=fopen("result.dat","wb");
+    long no=0;
 #endif
     while( (bytes_read = fread(buffer, sizeof(unsigned char), BUFFER_SIZE, fp)) !=0){
+        for(i=0;i<bytes_read;i+=CHUNK_SIZE,no++){
+            long bytes=bytes_read-i>CHUNK_SIZE?CHUNK_SIZE:bytes_read-i;
+            int j=0;
+            for(j=0;j<HIST_SIZE;j++) hist[j]=0;
+            getHistogram(buffer+i,hist,bytes);
+            double chi=calcChi(hist,bytes);
 #ifdef DEBUG
-        printf("\tfile location:%ld-%ld\n",loc,loc+bytes_read-1);
+            fprintf(fout,"%ld,%lf,%s\n",no,chi,(chi<THRESHOLD_CHUNK? "o":"x"));
 #endif
-        int e=isChunkEncrypted(buffer,bytes_read);
-#ifdef DEBUG
-        loc+=bytes_read;
-        if(e){
-            printf(";-)\tchunk is encrpyted\n\n");
-        }else{
-            printf(":-(\tchunk is NOT encrpyted\n\n");
+            if(chi>=THRESHOLD_CHUNK) suspects++;
         }
-#endif
-        isEncrypted =isEncrypted && e;
     }
     fclose(fp);
-    return isEncrypted;
+#ifdef DEBUG
+    fclose(fout);
+    printf("\tsuspecious blocks:%d\n",suspects);
+#endif
+    return suspects<THRESHOLD_SUSPECTS;
 }
 
 int main(int argc,char *argv[]){
     if(isFileEncrypted(argv[1])){
-        printf(";-) \tencrypted.\n");
+        printf(";-) \tWhole File is encrypted.\n");
     } else{
-        printf(":-( \tNOT encrypted.\n");
+        printf(":-( \tWhole File is NOT encrypted.\n");
     }
-    return EXIT_SUCCESS;
+
+    if(isChunksEncrypted(argv[1])){
+        printf(";-) \tchunks are encrypted.\n");
+    } else{
+        printf(":-( \tchunks are NOT encrypted.\n");
+    }
+    return 0;
 }
