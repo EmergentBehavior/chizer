@@ -1,17 +1,27 @@
-#Determinaor of Encrypted Files by Chi Square Test
+#Encrypted Files Detector by Chi Square Test
 
 ##Outline
-This is a program that determins specified file is encrypted or not. 
+This is a program that determines specified file is encrypted or not. 
 Encrypted files have more random bytes than raw/compressed files. And randomness is measured by 
 http://en.wikipedia.org/wiki/Chi-square_test. Putting it simply, if a file has completely randome bytes,
 the expectation rate of occurence of data 0x00 is (total bytes)/256, because bytes are between 0 and 255.
-if this file will becomes less random, the rate will be far from this value. i.e. the value of
-```
-χ^2=(observed-expected)^2/expected
-```
-will be bigger.  So if χ^2 is bigger than certain value, file can be judged as not random,i.e. not encrpyted.
+if this file will becomes less random, the rate will be far from this value. so the value of
 
-The threshold is defined by significance level, which is usually 5%. It means files may be misjudged as not encrypted
+![](http://upload.wikimedia.org/math/1/9/a/19a61a6c2844c76004d17666674c31df.png)
+
+will be bigger.(∑ means to sum up for all rate of occurence of data 0x00,0x01,,,0xff)
+So if χ^2 is bigger than certain value, file can be judged as not random,i.e. not encrpyted.
+
+Distribution of χ^2 is called http://en.wikipedia.org/wiki/Chi-squared_distribution, and the probability density 
+function is like a figure below.
+
+![](http://www.philender.com/courses/intro/notes3/xdist.gif)
+
+The probability that x^2 value is bigger than (x^2)* in figure above equals to blue area. This probability is called significance level.
+When you consider that x^2 is not distributed like figure above(i.e. data is not random) when x^2 value is bigger
+than  (x^2)*, the probability that in fact data is random equalsb lue area
+
+Normally people uses significance level as 5%. It means files may be misjudged as not encrypted
 at 5% rate.
 
 This program checkes two stages. One calculates chi square deviation for whole file and judge specified file is encrypted for not.For whole file judgement I use 5% significance level mentioned above.
