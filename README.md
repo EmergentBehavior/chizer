@@ -32,12 +32,9 @@ This program checkes two stages. One calculates chi square deviation for whole f
 
 procedure
 
-1.calculate histogram for data 0x00~0xff. i.e. count the number of byte=0x00,0x01...0xff.
-
-2.calculate ![](http://upload.wikimedia.org/math/1/9/a/19a61a6c2844c76004d17666674c31df.png)
-where observed is the number counted procedure 1, and expected=(all bytes count)/256
-
-3.if x^2<293.247835, file is judged as encrypted.
+1. calculate histogram for data 0x00~0xff. i.e. count the number of byte=0x00,0x01...0xff.
+2. calculate ![](http://upload.wikimedia.org/math/1/9/a/19a61a6c2844c76004d17666674c31df.png), where observed is the number counted procedure 1, and expected=(all bytes count)/256
+3. if x^2<293.247835, file is judged as encrypted.
 
 Another caculates deviation for each chunks whose size is 32 bytes . and I used deviation<512 for detecting suspecious chunks.
 And number of suspecious chunks are over 5, this file is judged as not encrpyted.
@@ -45,15 +42,11 @@ These parametes are used in article I refered. (It seemds these are introduced h
 
 procedure
 
-0.pointer=start of data
-
-1.calculate x^2 for 32 bytes from pointer.
-
-2.if x^2>512, number of suspecious chunks++
-
-3.set pointer to next 32 bytes, and go procedure 1 until pointer<end of data.
-
-4.if number ofsuspecious chunks>=5, file is not encrypted.
+1. pointer=start of data
+2. calculate x^2 for 32 bytes from pointer.
+3. if x^2>512, number of suspecious chunks++
+4. set pointer to next 32 bytes, and go procedure 1 until pointer<end of data.
+5. if number ofsuspecious chunks>=5, file is not encrypted.
 
 ## Evaluation
 1.First I used http://www.fourmilab.ch/random/ to files that created by https://github.com/Storj/RandomIO, 
