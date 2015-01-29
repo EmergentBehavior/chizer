@@ -40,8 +40,6 @@ Serial correlation coefficient is -0.001882 (totally uncorrelated = 0.0).
 2.I ran this programs to above files, and all files were judged as encrypted.
 ```
 $ ./chi data/1f567965f3b034d819d035cbfa68f4b1 
-data/1f567965f3b034d819d035cbfa68f4b1
-;-)     not contan period.
         file size=500000 bytes
         Chi square distribution=237.053952
         significance level:0.050000
@@ -53,8 +51,6 @@ data/1f567965f3b034d819d035cbfa68f4b1
 not encrypted.
 ```
 $./chi data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp4
-data/Storj - Decentralizing Cloud Storage-vl3bUzfn2lg.mp4
-:-(     contans period(s).
         file size=8328756 bytes
         Chi square distribution=231780.126855
         significance level:0.000000
@@ -66,8 +62,6 @@ data/Storj - Decentralizing Cloud Storage-vl3bUzfn2lg.mp4
 ```
 $ ./chi data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp4.gz 
 data/Storj - Decentralizing Cloud Storage-vl3bUzfn2lg.mp4.gz
-:-(     contans period(s).
-        file size=8253839 bytes
         Chi square distribution=3035.437162
         significance level:0.000000
 :-(     NOT encrypted.
@@ -76,13 +70,37 @@ data/Storj - Decentralizing Cloud Storage-vl3bUzfn2lg.mp4.gz
 5.I bzipped above mp4, and ran this program, and judged as not encrpyted.
 ```
 $ ./chi data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp4.bz2 
-data/Storj - Decentralizing Cloud Storage-vl3bUzfn2lg.mp4.bz2
-:-(     contans period(s).
         file size=8282494 bytes
         Chi square distribution=1809.816191
         significance level:0.000000
 :-(     NOT encrypted.
 ```
+
+6.I made 30MB encrpyted data by RandomIO, and append mp3 extracted from mp4 above to it, and I generated
+mixed data. This mixed data was judged as not encrpyted.
+```
+$ ./chi RandomIO/ac59ab5a282afd3de22062c7d62b5367 
+        file size=30000000 bytes
+        Chi square distribution=236.723524
+        significance level:0.050000
+;-)     encrypted.
+
+$ ./chi  data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp3
+        file size=1131343 bytes
+        Chi square distribution=401836.631443
+        significance level:0.000000
+:-(     NOT encrypted.
+
+$ cat RandomIO/ac59ab5a282afd3de22062c7d62b5367 data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp3 >> mixed.dat
+
+$ ./chi mixed.dat 
+        file size=31131343 bytes
+        Chi square distribution=14699.782819
+        significance level:0.000000
+:-(     NOT encrypted.
+
+```
+
 
 
 ##Reference
