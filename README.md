@@ -14,9 +14,10 @@ will be bigger.  So if χ^2 is bigger than certain value, file can be judged as 
 The threshold is defined by significance level, which is usually 5%. It means files may be misjudged as not encrypted
 at 5% rate.
 
-This program checkes two stages. One calculates chi square deviation for whole file and judge specified file is encrypted for not. Another caculates deviation for each chunks whose size is 32 bytes. 
-For whole file judgement I use 5% significance level mentioned above, but for chunks check, I used deviation
+This program checkes two stages. One calculates chi square deviation for whole file and judge specified file is encrypted for not.For whole file judgement I use 5% significance level mentioned above.
 
+Another caculates deviation for each chunks whose size is 32 bytes . and I used deviation<256 for judgement.
+These parametes are used in article I refered. (It seemds these are introduced heuristically.)
 
 ## Evaluation
 1.First I used http://www.fourmilab.ch/random/ to files that created by https://github.com/Storj/RandomIO, 
