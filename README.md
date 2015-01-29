@@ -83,7 +83,7 @@ $ ./chi RandomIO/ac59ab5a282afd3de22062c7d62b5367
         file size=30000000 bytes
         Chi square distribution=236.723524
         significance level:0.050000
-;-)     RandomIO/ac59ab5a282afd3de22062c7d62b5367 is encrypted.
+;-)     encrypted.
 
 $ ./chi data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp3.gz 
         file size=1086301 bytes
