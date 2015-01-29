@@ -2,9 +2,12 @@
 #include <stdlib.h>
 #include <limits.h>
 
-#define DEBUG 1
+//#define DEBUG 1
 #define HIST_SIZE 256
-#define BUFFER_SIZE 65535
+#define BUFFER_SIZE 32 //from article
+
+#define THRESHOLD_FILE 293.247835 //p=0.05
+#define THRESHOLD_CHUNK 512 //from article
 
 typedef struct {
     char *message;
@@ -12,22 +15,15 @@ typedef struct {
     double p;
 } threshold;
 
-threshold criteria[]={
-    {"is definitely encrpyted",219.025255,0.95}, 
-    {"must be encrpyted",293.247835,0.05}, 
-    {"maybe encrpyted",310.457388,0.01}, 
-//    {"is not encrpyted",316.919385,0.005}, 
-    {"is not encrpyted",INT_MAX,0}  
-};
 
 typedef struct  {
     long data[HIST_SIZE];
-    long count;
+    long bytes;
 } histogram;
 
 double calcChi(histogram *hist){
     double chi=0;
-    double expected=(double)hist->count/HIST_SIZE;
+    double expected=(double)hist->bytes/HIST_SIZE;
     int i=0;
     for(i=0;i<HIST_SIZE;i++){
         double diff=hist->data[i]-expected;
@@ -36,58 +32,64 @@ double calcChi(histogram *hist){
     return chi;
 }
 
+histogram *getHistogram(unsigned char *buffer,histogram *hist){
+    int i=0;
+    for(i=0;i<HIST_SIZE;i++){
+        hist->data[i]=0;
+    }
+    for(i=0;i<hist->bytes;i++){
+      hist->data[buffer[i]]++;
+    }
+    return hist;
+}
 
-histogram *getHist(char *fname,histogram *hist){
+int isChunkEncrypted(unsigned char *buffer,int bytes){
+    histogram hist;
+    hist.bytes=bytes;
+    getHistogram(buffer,&hist);
+    double chi=calcChi(&hist);
+
+#ifdef DEBUG
+    printf("\tchunk size=%ld bytes\n",hist.bytes);
+    printf("\tChi square distribution=%lf\n",chi);
+#endif
+    return chi<THRESHOLD_CHUNK;
+}
+
+int isFileEncrypted(char *fname){
     FILE *fp=NULL;
 
     if( (fp=fopen(fname,"rb"))==NULL){
         fprintf(stderr,"cannot open %s\n",fname);
         exit(EXIT_FAILURE);
     }
-    int i=0;
-    for(i=0;i<HIST_SIZE;i++){
-        hist->data[i]=0;
-    }
     unsigned char buffer[BUFFER_SIZE];
     int bytes_read=0;
-    hist->count=0;
+    int isEncrypted=1;
+#ifdef DEBUG
+   long loc=0;
+#endif
     while( (bytes_read = fread(buffer, sizeof(unsigned char), BUFFER_SIZE, fp)) !=0){
-        hist->count+=bytes_read;
-        int i=0;
-        for(i=0;i<bytes_read;i++){
-          hist->data[buffer[i]]++;
+#ifdef DEBUG
+        printf("\tfile location:%ld-%ld\n",loc,loc+bytes_read-1);
+#endif
+        int e=isChunkEncrypted(buffer,bytes_read);
+#ifdef DEBUG
+        loc+=bytes_read;
+        if(e){
+            printf(";-)\tchunk is encrpyted\n\n");
+        }else{
+            printf(":-(\tchunk is NOT encrpyted\n\n");
         }
+#endif
+        isEncrypted =isEncrypted && e;
     }
     fclose(fp);
-    return hist;
+    return isEncrypted;
 }
-
-int judgeRank(char *fname){
-    histogram hist;
-    getHist(fname,&hist);
-    double chi=calcChi(&hist);
-    int rank=0;
-    for(rank=0;rank<4;rank++){
-        if(chi<=criteria[rank].value){
-            break;
-        }
-    }
-#ifdef DEBUG
-    printf("\tfile size=%ld bytes\n",hist.count);
-    printf("\tChi square distribution=%lf\n",chi);
-//    printf("\t%s.\n",criteria[rank].message);
-    printf("\tsignificance level:%lf\n",criteria[rank].p);
-#endif
-    return rank;
-}
-
-int isEncrypted(char *fname){
-  return judgeRank(fname)<=1; //p=0.05
-}
-
 
 int main(int argc,char *argv[]){
-    if(isEncrypted(argv[1])){
+    if(isFileEncrypted(argv[1])){
         printf(";-) \tencrypted.\n");
     } else{
         printf(":-( \tNOT encrypted.\n");
