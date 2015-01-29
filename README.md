@@ -40,31 +40,75 @@ Serial correlation coefficient is -0.001882 (totally uncorrelated = 0.0).
 2.I ran this programs to above files, and all files were judged as encrypted.
 ```
 $ ./chi data/1f567965f3b034d819d035cbfa68f4b1 
-file size=500000 bytes
-Chi square distribution=237.053952
-significance level:0.050000
-data/1f567965f3b034d819d035cbfa68f4b1 is encrypted.
+        file size=500000 bytes
+        Chi square distribution=237.053952
+        significance level:0.050000
+;-)     encrypted.
+
 ```
 
 3.I ran this program to https://www.youtube.com/watch?v=vl3bUzfn2lg (Storj Promotion Video), and judged as
 not encrypted.
 ```
 $./chi data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp4
-file size=8328756 bytes
-Chi square distribution=231780.126855
-significance level:0.000000
-data/Storj - Decentralizing Cloud Storage-vl3bUzfn2lg.mp4 is NOT encrypted.
+        file size=8328756 bytes
+        Chi square distribution=231780.126855
+        significance level:0.000000
+:-(     NOT encrypted.
 ```
 
 4.I gzipped above mp4, and ran this program, and judged as not encrpyted.
 
 ```
 $ ./chi data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp4.gz 
-file size=8253839 bytes
-Chi square distribution=3035.437162
-significance level:0.000000
-data/Storj - Decentralizing Cloud Storage-vl3bUzfn2lg.mp4.gz is NOT encrypted.
+data/Storj - Decentralizing Cloud Storage-vl3bUzfn2lg.mp4.gz
+        Chi square distribution=3035.437162
+        significance level:0.000000
+:-(     NOT encrypted.
 ```
+
+5.I bzipped above mp4, and ran this program, and judged as not encrpyted.
+```
+$ ./chi data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp4.bz2 
+        file size=8282494 bytes
+        Chi square distribution=1809.816191
+        significance level:0.000000
+:-(     NOT encrypted.
+```
+
+6.I made 30MB encrpyted data by RandomIO, and append gzipped mp3 extracted from mp4 above to it, and I generated
+mixed data. This mixed data was judged as encrpyted(unfortunately fake was succeeded...).
+```
+$ ./chi RandomIO/ac59ab5a282afd3de22062c7d62b5367 
+        file size=30000000 bytes
+        Chi square distribution=236.723524
+        significance level:0.050000
+;-)     encrypted.
+
+$ ./chi data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp3.gz 
+        file size=1086301 bytes
+        Chi square distribution=2018.514713
+        significance level:0.000000
+:-(     NOT encrypted.
+
+$ cat RandomIO/ac59ab5a282afd3de22062c7d62b5367 data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp3.gz >> mixed2.dat
+
+$ ./chi mixed2.dat 
+        file size=31086301 bytes
+        Chi square distribution=261.202954
+        significance level:0.050000
+;-)     encrypted.
+
+```
+7.I gzipped the encrypted file, and I ran this program. The result is "encrypted".
+```
+$./chi data.gz/1f567965f3b034d819d035cbfa68f4b1.gz 
+        file size=500131 bytes
+        Chi square distribution=235.491691
+        significance level:0.050000
+;-)     encrypted
+```
+
 
 ##Reference
 1. http://www.devttys0.com/2013/06/differentiate-encryption-from-compression-using-math/
