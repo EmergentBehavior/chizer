@@ -25,7 +25,8 @@ Normally people uses significance level as 5%. It means files may be misjudged a
 at 5% rate.
 
 Above figure varies depend of the number of summation. This number is called degrees of freedom(k).
-In our case, k=256-1=255. When k=255 and significant level is 5%, (x^2)* =293.247835.
+In our case, k=256-1=255. When k=255 and significant level is 5%, (x^2)* =293.247835. 
+This was calulated by https://www.sist.ac.jp/~suganuma/cpp/2-bu/7-sho/C++/chi.txt .
 
 ##What This Program Does
 This program checkes two stages. One calculates chi square deviation for whole file and judge specified file is encrypted for not.For whole file judgement I use 5% significance level mentioned above.
@@ -140,7 +141,7 @@ graph of chi square distribution is:
 
 ![](http://i.imgur.com/G7hWfKu.png)
 
-(x:chuck no from begging of file, y:distribution)
+(x:chuck no from beginng of file, y:distribution)
 
 7.I gzipped the encrypted file, and I ran this program. The result is "encrypted".
 ```
