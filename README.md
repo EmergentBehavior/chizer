@@ -1,6 +1,6 @@
 #Encrypted Files Detector by Chi Square Test
 
-##Outline
+##Theory
 This is a program that determines specified file is encrypted or not. 
 Encrypted files have more random bytes than raw/compressed files. And randomness is measured by 
 http://en.wikipedia.org/wiki/Chi-square_test. Putting it simply, if a file has completely randome bytes,
@@ -19,11 +19,15 @@ function is like a figure below.
 
 The probability that x^2 value is bigger than (x^2)* in figure above equals to blue area. This probability is called significance level.
 When you consider that x^2 is not distributed like figure above(i.e. data is not random) when x^2 value is bigger
-than  (x^2)*, the probability that in fact data is random equalsb lue area
+than  (x^2)*, the probability that in fact data is random equals blue area.
 
 Normally people uses significance level as 5%. It means files may be misjudged as not encrypted
 at 5% rate.
 
+Above figure varies depend of the number of summation. This number is called degrees of freedom(k).
+In our case, k=256-1=255. When k=255 and significant level is 5%, (x^2)* =293.247835.
+
+##What This Program Does
 This program checkes two stages. One calculates chi square deviation for whole file and judge specified file is encrypted for not.For whole file judgement I use 5% significance level mentioned above.
 
 Another caculates deviation for each chunks whose size is 32 bytes . and I used deviation<512 for detecting suspecious chunks.
