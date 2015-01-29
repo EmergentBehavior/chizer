@@ -30,6 +30,18 @@ In our case, k=256-1=255. When k=255 and significant level is 5%, (x^2)* =293.24
 ##What This Program Does
 This program checkes two stages. One calculates chi square deviation for whole file and judge specified file is encrypted for not.For whole file judgement I use 5% significance level mentioned above.
 
+procedure
+
+1.calculate histogram for data 0x00~0xff. i.e. count the number of byte=0x00,0x01...0xff.
+
+2.calculate 
+
+![](http://upload.wikimedia.org/math/1/9/a/19a61a6c2844c76004d17666674c31df.png)
+
+,where observed is the number counted procedure 1, and expected=(all bytes count)/256
+
+3.if x^2<293.247835, file is judged as encrypted.
+
 Another caculates deviation for each chunks whose size is 32 bytes . and I used deviation<512 for detecting suspecious chunks.
 And number of suspecious chunks are over 5, this file is judged as not encrpyted.
 These parametes are used in article I refered. (It seemds these are introduced heuristically.)
