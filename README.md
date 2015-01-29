@@ -100,7 +100,14 @@ $ ./chi mixed2.dat
 ;-)     encrypted.
 
 ```
-
+7.I gzipped the encrypted file, and I ran this program. The result is "encrypted".
+```
+$./chi data.gz/1f567965f3b034d819d035cbfa68f4b1.gz 
+        file size=500131 bytes
+        Chi square distribution=235.491691
+        significance level:0.050000
+;-)     encrypted
+```
 
 
 ##Reference
