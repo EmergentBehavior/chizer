@@ -132,6 +132,7 @@ user    0m1.337s
 sys     0m0.050s
 ```
 at
+* compie :  gcc -o chi chi.c -O3
 * kernel: Linux  3.18.4-1-ARCH #1 SMP PREEMPT Tue Jan 27 20:45:02 CET 2015 x86_64 GNU/Linux
 * CPU: AMD Athlon(tm) 64 X2 Dual Core Processor 3800+
 
