@@ -112,7 +112,7 @@ graph of chi square distribution is:
 
 ![](http://i.imgur.com/G7hWfKu.png)
 
-(x:data location in file, y:distribution)
+(x:chuck no from begging of file, y:distribution)
 
 7.I gzipped the encrypted file, and I ran this program. The result is "encrypted".
 ```
