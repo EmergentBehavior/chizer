@@ -34,11 +34,8 @@ procedure
 
 1.calculate histogram for data 0x00~0xff. i.e. count the number of byte=0x00,0x01...0xff.
 
-2.calculate 
-
-![](http://upload.wikimedia.org/math/1/9/a/19a61a6c2844c76004d17666674c31df.png)
-
-,where observed is the number counted procedure 1, and expected=(all bytes count)/256
+2.calculate ![](http://upload.wikimedia.org/math/1/9/a/19a61a6c2844c76004d17666674c31df.png)
+where observed is the number counted procedure 1, and expected=(all bytes count)/256
 
 3.if x^2<293.247835, file is judged as encrypted.
 
@@ -166,6 +163,7 @@ at
 * compie :  gcc -o chi chi.c -O3
 * kernel: Linux  3.18.4-1-ARCH #1 SMP PREEMPT Tue Jan 27 20:45:02 CET 2015 x86_64 GNU/Linux
 * CPU: AMD Athlon(tm) 64 X2 Dual Core Processor 3800+
+* memory:3GB
 
 ##Reference
 1. http://www.devttys0.com/2013/06/differentiate-encryption-from-compression-using-math/
