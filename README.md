@@ -16,7 +16,7 @@ at 5% rate.
 
 This program checkes two stages. One calculates chi square deviation for whole file and judge specified file is encrypted for not.For whole file judgement I use 5% significance level mentioned above.
 
-Another caculates deviation for each chunks whose size is 32 bytes . and I used deviation<256 for detecting suspecious chunks.
+Another caculates deviation for each chunks whose size is 32 bytes . and I used deviation<512 for detecting suspecious chunks.
 And number of suspecious chunks are over 5, this file is judged as not encrpyted.
 These parametes are used in article I refered. (It seemds these are introduced heuristically.)
 
