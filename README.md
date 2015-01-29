@@ -1,6 +1,6 @@
 #Encrypted Files Detector by Chi Square Test
 
-##Theory
+##Theory Outline
 This is a program that determines specified file is encrypted or not. 
 Encrypted files have more random bytes than raw/compressed files. And randomness is measured by 
 http://en.wikipedia.org/wiki/Chi-square_test. Putting it simply, if a file has completely randome bytes,
@@ -42,6 +42,18 @@ where observed is the number counted procedure 1, and expected=(all bytes count)
 Another caculates deviation for each chunks whose size is 32 bytes . and I used deviation<512 for detecting suspecious chunks.
 And number of suspecious chunks are over 5, this file is judged as not encrpyted.
 These parametes are used in article I refered. (It seemds these are introduced heuristically.)
+
+procedure
+
+0.pointer=start of data
+
+1.calculate x^2 for 32 bytes from pointer.
+
+2.if x^2>512, number of suspecious chunks++
+
+3.set pointer to next 32 bytes, and go procedure 1 until pointer<end of data.
+
+4.if number ofsuspecious chunks>=5, file is not encrypted.
 
 ## Evaluation
 1.First I used http://www.fourmilab.ch/random/ to files that created by https://github.com/Storj/RandomIO, 
