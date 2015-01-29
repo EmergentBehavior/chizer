@@ -1,4 +1,4 @@
-#Determination of Encrypted Files by Chi Square Test
+#Determinaor of Encrypted Files by Chi Square Test
 
 ##Outline
 This is a program that determins specified file is encrypted or not. 
@@ -6,12 +6,17 @@ Encrypted files have more random bytes than raw/compressed files. And randomness
 http://en.wikipedia.org/wiki/Chi-square_test. Putting it simply, if a file has completely randome bytes,
 the expectation rate of occurence of data 0x00 is (total bytes)/256, because bytes are between 0 and 255.
 if this file will becomes less random, the rate will be far from this value. i.e. the value of
-```math
-χ2=(observed-expected)2/expected
 ```
-will be bigger. So if χ2 is bigger than certain value, file can be judged as not random,i.e. not encrpyted.
-This threshold is defined by significance level, which is usually 5%. It means files may be misjudged as not encrypted
+χ^2=(observed-expected)^2/expected
+```
+will be bigger.  So if χ^2 is bigger than certain value, file can be judged as not random,i.e. not encrpyted.
+
+The threshold is defined by significance level, which is usually 5%. It means files may be misjudged as not encrypted
 at 5% rate.
+
+This program checkes two stages. One calculates chi square deviation for whole file and judge specified file is encrypted for not. Another caculates deviation for each chunks whose size is 32 bytes. 
+For whole file judgement I use 5% significance level mentioned above, but for chunks check, I used deviation
+
 
 ## Evaluation
 1.First I used http://www.fourmilab.ch/random/ to files that created by https://github.com/Storj/RandomIO, 
