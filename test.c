@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <tap.h>
-#include "chi.h"
+#include "chizer.h"
 
 #define BUFFER_SIZE 65535
 
