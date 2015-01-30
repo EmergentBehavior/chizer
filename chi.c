@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define DEBUG
-
 #define HIST_SIZE 256
 #define BUFFER_SIZE 65536
 
@@ -31,7 +29,7 @@ double calcChi(long *hist,int bytes){
     return chi;
 }
 
-int isFileEncrypted(char *fname){
+double getFileChi(char *fname){
     FILE *fp=NULL;
     int i=0;
     long hist[HIST_SIZE];
@@ -52,7 +50,11 @@ int isFileEncrypted(char *fname){
 #ifdef DEBUG
     printf("\tChi square distribution=%lf\n",chi);
 #endif
-    return chi < THRESHOLD_FILE;
+    return chi;
+}
+
+int isFileEncrypted(char *fname){
+    return  getFileChi(fname)< THRESHOLD_FILE;
 }
 
 
@@ -74,7 +76,7 @@ int isChunksEncrypted(char *fname){
     long no=0;
 #endif
     while( (bytes_read = fread(buffer, sizeof(unsigned char), BUFFER_SIZE, fp)) !=0){
-        for(i=0;i<bytes_read;i+=CHUNK_SIZE,no++){
+        for(i=0;i<bytes_read;i+=CHUNK_SIZE){
             long bytes=bytes_read-i>CHUNK_SIZE?CHUNK_SIZE:bytes_read-i;
             int j=0;
             for(j=0;j<HIST_SIZE;j++) hist[j]=0;
@@ -82,6 +84,7 @@ int isChunksEncrypted(char *fname){
             double chi=calcChi(hist,bytes);
 #ifdef DEBUG
             fprintf(fout,"%ld,%lf,%s\n",no,chi,(chi<THRESHOLD_CHUNK? "o":"x"));
+            no++;
 #endif
             if(chi>=THRESHOLD_CHUNK) suspects++;
         }
@@ -94,6 +97,7 @@ int isChunksEncrypted(char *fname){
     return suspects<THRESHOLD_SUSPECTS;
 }
 
+#ifdef CHI_MAIN 
 int main(int argc,char *argv[]){
     if(isFileEncrypted(argv[1])){
         printf(";-) \tWhole File is encrypted.\n");
@@ -108,3 +112,4 @@ int main(int argc,char *argv[]){
     }
     return 0;
 }
+#endif
