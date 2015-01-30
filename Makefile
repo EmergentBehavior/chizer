@@ -1,8 +1,8 @@
-all: chi
-chi: chi.c chi.h
-	gcc -Wall -DCHI_MAIN -o chi chi.c 
-test: chi.c test.c chi.h
+all: chizer
+chizer: chizer.c chizer.h
+	gcc -Wall -DCHI_MAIN -o chizer chizer.c 
+test: chizer.c test.c chizer.h
 	cd libtap; make
-	gcc  -fprofile-arcs -ftest-coverage -static -Wall -DDEBUG -o test test.c chi.c -ltap -Ilibtap -Llibtap
+	gcc  -fprofile-arcs -ftest-coverage -static -Wall -DDEBUG -o test test.c chizer.c -ltap -Ilibtap -Llibtap
 clean:
 	rm *.o test
