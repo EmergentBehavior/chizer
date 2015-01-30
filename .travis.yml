@@ -3,7 +3,8 @@ compiler: gcc
 
 before_install:
   - git submodule update --init --recursive
+  - make test
 
 script:
-  - make test
+  - ./test
 
