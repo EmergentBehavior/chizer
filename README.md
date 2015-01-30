@@ -78,7 +78,7 @@ Serial correlation coefficient is -0.001882 (totally uncorrelated = 0.0).
 
 2.I ran this programs to above files, and all files were judged as encrypted.
 ```
-$ ./chi data/1f567965f3b034d819d035cbfa68f4b1 
+$ ./chizer data/1f567965f3b034d819d035cbfa68f4b1 
         Chi square distribution=237.053952
 ;-)     Whole File is encrypted.
         suspecious blocks:0
@@ -88,7 +88,7 @@ $ ./chi data/1f567965f3b034d819d035cbfa68f4b1
 3.I ran this program to https://www.youtube.com/watch?v=vl3bUzfn2lg (Storj Promotion Video), and judged as
 not encrypted.
 ```
-$../chi data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp4
+$../chizer data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp4
         Chi square distribution=231780.126855
 :-(     Whole File is NOT encrypted.
         suspecious blocks:3594
@@ -99,7 +99,7 @@ $../chi data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp4
 4.I gzipped above mp4, and ran this program, and judged as not encrpyted.
 
 ```
-$ ./chi data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp4.gz 
+$ ./chizer data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp4.gz 
         Chi square distribution=3035.437162
 :-(     Whole File is NOT encrypted.
         suspecious blocks:183
@@ -108,7 +108,7 @@ $ ./chi data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp4.gz
 
 5.I bzipped above mp4, and ran this program, and judged as not encrpyted.
 ```
-$ ./chi data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp4.bz2 
+$ ./chizer data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp4.bz2 
         Chi square distribution=1809.816191
 :-(     Whole File is NOT encrypted.
         suspecious blocks:134
@@ -118,13 +118,13 @@ $ ./chi data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp4.bz2
 6.I made 30MB encrpyted data by RandomIO, and append gzipped mp3 extracted from mp4 above to it, and I generated
 mixed data. This mixed data was judged as not encrpyted(fake was NOT succeeded...).
 ```
-$  ./chi data/ac59ab5a282afd3de22062c7d62b5367 
+$  ./chizer data/ac59ab5a282afd3de22062c7d62b5367 
         Chi square distribution=236.723524
 ;-)     Whole File is encrypted.
         suspecious blocks:0
 ;-)     chunks are encrypted.
 
-$ ./chi data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp3.gz 
+$ ./chizer data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp3.gz 
         Chi square distribution=2018.514713
 :-(     Whole File is NOT encrypted.
         suspecious blocks:6
@@ -133,7 +133,7 @@ $ ./chi data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp3.gz
 
 $ cat RandomIO/ac59ab5a282afd3de22062c7d62b5367 data/Storj\ -\ Decentralizing\ Cloud\ Storage-vl3bUzfn2lg.mp3.gz >> mixed2.dat
 
-$ ./chi  mixed2.dat 
+$ ./chizer  mixed2.dat 
         Chi square distribution=261.202954
 ;-)     Whole File is encrypted.
         suspecious blocks:6
@@ -148,7 +148,7 @@ graph of chi square distribution is:
 
 7.I gzipped the encrypted file, and I ran this program. The result is "encrypted".
 ```
-$./chi data.gz/1f567965f3b034d819d035cbfa68f4b1.gz 
+$./chizer data.gz/1f567965f3b034d819d035cbfa68f4b1.gz 
         Chi square distribution=235.491691
 ;-)     Whole File is encrypted.
         suspecious blocks:0
@@ -160,7 +160,7 @@ $./chi data.gz/1f567965f3b034d819d035cbfa68f4b1.gz
 
 result of 30MB file.
 ```
- time ./chi data/ac59ab5a282afd3de22062c7d62b5367 
+ time ./chizer data/ac59ab5a282afd3de22062c7d62b5367 
 ;-)     Whole File is encrypted.
 ;-)     chunks are encrypted.
 
