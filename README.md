@@ -1,3 +1,5 @@
+![](https://travis-ci.org/storj-jp/chi.svg)
+
 #Encrypted File Detector by Chi Square Test
 
 ##Theory Outline
