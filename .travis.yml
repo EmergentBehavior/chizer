@@ -8,4 +8,4 @@ before_install:
 script:
   - ./test
 after_success:
-  - coveralls --exclude test.c --exclude chi.h --exclude data --exclude libtap --gcov-options '\-lp'
+  - coveralls --exclude test.c --exclude chizer.h --exclude data --exclude libtap --gcov-options '\-lp'
