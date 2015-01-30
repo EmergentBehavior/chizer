@@ -1,4 +1,5 @@
 ![](https://travis-ci.org/storj-jp/chi.svg)
+[![Coverage Status](https://coveralls.io/repos/storj-jp/chi/badge.svg?branch=master)](https://coveralls.io/r/storj-jp/chi?branch=master)
 
 #Encrypted File Detector by Chi Square Test
 
