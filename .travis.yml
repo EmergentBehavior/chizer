@@ -4,10 +4,6 @@ compiler: gcc
 before_install:
   - git submodule update --init --recursive
   - make test
-env:
-  global:
-    - LD_LIBRARY_PATH=./libtap
-
 
 script:
   - ./test
