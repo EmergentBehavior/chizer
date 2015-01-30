@@ -60,6 +60,9 @@ int main () {
     int isEncrypted=isFileEncrypted("data/ac59ab5a282afd3de22062c7d62b5367");
     ok( isEncrypted,"whole file encryption detector test for 30MB encrypted file");
 
+    dies_ok({isFileEncrypted("nofile");},"no exist file for isFileEncrypted function");
+    dies_ok({isChunksEncrypted("nofile");},"no exist file for isChunksEncrypted function");
+
     isEncrypted=isFileEncrypted("data/Storj - Decentralizing Cloud Storage-vl3bUzfn2lg.mp4.gz");
     ok( !isEncrypted,"while file encryption detector test for gzipped Storj movie file");
 
