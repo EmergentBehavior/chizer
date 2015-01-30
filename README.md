@@ -171,6 +171,12 @@ at
 * CPU: AMD Athlon(tm) 64 X2 Dual Core Processor 3800+
 * memory:3GB
 
+# Contribution
+Feel free to make any improvements, and to pull requests. 
+
+#License
+BSD license
+
 ##Reference
 1. http://www.devttys0.com/2013/06/differentiate-encryption-from-compression-using-math/
 2. http://www.devttys0.com/2013/06/encryption-vs-compression-part-2/
