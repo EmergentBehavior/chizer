@@ -2,6 +2,8 @@ all: chi
 chi: chi.c chi.h
 	gcc -Wall -DCHI_MAIN -o chi chi.c 
 test: chi.c test.c chi.h
+	git submodule init
+	git submodule update
 	cd libtap
 	make
 	cd ..
