@@ -4,7 +4,8 @@ compiler: gcc
 before_install:
   - git submodule update --init --recursive
   - make test
-
+  - sudo pip install cpp-coveralls
 script:
   - ./test
-
+after_success:
+  - coveralls --exclude data --exclude libtap --gcov-options '\-lp'
