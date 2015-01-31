@@ -2,14 +2,14 @@
 [![Coverage Status](https://coveralls.io/repos/storj-jp/chizer/badge.svg?branch=master)](https://coveralls.io/r/storj-jp/chi?branch=master)
 
 # ![](https://raw.githubusercontent.com/storj-jp/chizer/master/image/chizer.png)  chizer
-Encrypted File Detector by Chi Square Test. You can also use this program as Python module.
+Encrypted File Detector by Chi Square Test. You can also use this program as Python2/Python3 module.
 
 ## Theory outline & evaluation results
 Please refer https://github.com/storj-jp/chizer/blob/master/evaluation.md
 
 ## Requirement
 * gcc
-* python3 for using python module
+* Python2 or Python3 for using python module
 
 ## Install
 * for C program
