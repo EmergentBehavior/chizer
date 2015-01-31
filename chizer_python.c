@@ -91,15 +91,15 @@ static struct PyModuleDef chizerModule = {
                 or -1 if the module keeps state in global variables. */
    chizerMethods
 };
-#endif
 
-
-#if PY_MAJOR_VERSION >= 3
 PyMODINIT_FUNC PyInit_chizer(void){
      return PyModule_Create(&chizerModule);
 }
+
 #else
+
 void initchizer(void) {
     Py_InitModule("chizer", chizerMethods);
 }
+
 #endif
