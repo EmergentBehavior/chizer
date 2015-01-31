@@ -1,43 +1,41 @@
 [![Build Status](https://travis-ci.org/storj-jp/chizer.svg?branch=master)](https://travis-ci.org/storj-jp/chizer)
 [![Coverage Status](https://coveralls.io/repos/storj-jp/chizer/badge.svg?branch=master)](https://coveralls.io/r/storj-jp/chi?branch=master)
 
-# ![](https://raw.githubusercontent.com/storj-jp/chizer/master/image/chizer.png)  chizer
-Encrypted File Detector by Chi Square Test. You can also use this program as Python2/Python3 module.
+# ![](https://raw.githubusercontent.com/storj-jp/chizer/master/image/chizer.png)  Chizer
+Chizer is a tool which uses a chi-square test to determine if a file is encrypted or not. Chizer is available as a C program or Python module.
 
-## Theory outline & evaluation results
-Please refer https://github.com/storj-jp/chizer/blob/master/evaluation.md
+## Theory & Evaluation
+Information relating to the theory and efficacy of this module are available [here](https://github.com/storj-jp/chizer/blob/master/evaluation.md). 
 
-## Requirement
-* gcc
-* Python2 or Python3 for using python module
+## Requirements
+Chizer only requires `gcc`. However, the python modules require that either Python 2.x or 3.x is installed.
 
-## Install
-* for C program
-  -  make chizer 
-* for python module
-  - make python 
-* to test
-  - make test 
+## Installation
+
+To compile the C program:
+
+    $ make chizer
+
+To build the python module:
+
+    $ make python
+    
+To run the associated tests:
+
+    $ make test
+    $ ./test
 
 ## Usage
-* for C program
-  - ./chizer "filename" 
-* for python module:
-  - chizer.isFileEncrypted("filename") returns true if "filename" is judged as encrypted.
-  - chizer.isChunksEncrypted("filename") returns true if chunks of "filename" is judged as encrypted.
-* to test
-  - ./test
+Once installed, you can use `chizer` to analyze a file of indeterminate encryption:
 
-Python program example:
-  ```
-import chizer
-isFileEncrypted=chizer.isFileEncrypted("data/faked.dat")
-isChunksEncrypted=chizer.isChunksEncrypted("data/faked.dat")
-  ```
+    $ ./chizer <filename_of_shard>
 
+If you are using Python, you can use `isFileEncrypted()` to test for encryption (by testing the entire file at once), or you can use `isChunksEncrypted()` to do a deeper analysis by analyzing discrete chunks of the file:
+
+    import chizer
+    file_path = 'data/faked.dat'
+    isFileEncrypted = chizer.isFileEncrypted(file_path)
+    areChunksEncrypted = chizer.isChunksEncrypted(file_path)
   
 # Contribution
-Feel free to make any improvements, and to pull requests. 
-
-#License
-BSD license
+Improvements to the codebase and pull requests are encouraged.
