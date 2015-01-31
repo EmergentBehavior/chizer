@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/storj-jp/chizer.svg?branch=master)](https://travis-ci.org/storj-jp/chizer)
 [![Coverage Status](https://coveralls.io/repos/storj-jp/chizer/badge.svg?branch=master)](https://coveralls.io/r/storj-jp/chi?branch=master)
 
-# chizer
+# ![](https://raw.githubusercontent.com/storj-jp/chizer/master/image/chizer.png)  chizer
 Encrypted File Detector by Chi Square Test. You can also use this program as Python module.
 
 # Theory outline & evaluation results
