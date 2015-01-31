@@ -1,6 +1,3 @@
-[![Build Status](https://travis-ci.org/storj-jp/chizer.svg?branch=master)](https://travis-ci.org/storj-jp/chizer)
-[![Coverage Status](https://coveralls.io/repos/storj-jp/chizer/badge.svg?branch=master)](https://coveralls.io/r/storj-jp/chi?branch=master)
-
 #Encrypted File Detector by Chi Square Test
 
 ##Theory Outline
@@ -174,11 +171,6 @@ at
 * CPU: AMD Athlon(tm) 64 X2 Dual Core Processor 3800+
 * memory:3GB
 
-# Contribution
-Feel free to make any improvements, and to pull requests. 
-
-#License
-BSD license
 
 ##Reference
 1. http://www.devttys0.com/2013/06/differentiate-encryption-from-compression-using-math/
