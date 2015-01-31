@@ -27,6 +27,14 @@ Please refer https://github.com/storj-jp/chizer/blob/master/evaluation.md
   - chizer.isChunksEncrypted("filename") returns true if chunks of "filename" is judged as encrypted.
 * to test
   - ./test
+
+Python program example:
+  ```
+import chizer
+isFileEncrypted=chizer.isFileEncrypted("data/faked.dat")
+isChunksEncrypted=chizer.isChunksEncrypted("data/faked.dat")
+  ```
+
   
 # Contribution
 Feel free to make any improvements, and to pull requests. 
