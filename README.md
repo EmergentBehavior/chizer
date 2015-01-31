@@ -4,7 +4,7 @@
 # ![](https://raw.githubusercontent.com/storj-jp/chizer/master/image/chizer.png)  chizer
 Encrypted File Detector by Chi Square Test. You can also use this program as Python module.
 
-# Theory outline & evaluation results
+## Theory outline & evaluation results
 Please refer https://github.com/storj-jp/chizer/blob/master/evaluation.md
 
 ## Requirement
