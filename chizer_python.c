@@ -1,7 +1,7 @@
 #include <Python.h>
 #include "chizer.h"
  
-#ifdef 0
+#if 0
 static PyObject *chizer_getHistogram(PyObject *self, PyObject *args){
     int i=0;
     unsigned char *buffer=NULL;
@@ -74,7 +74,7 @@ static PyObject *chizer_isChunksEncrypted(PyObject *self, PyObject *args){
 static PyMethodDef chizerMethods[] = {
     {"isFileEncrypted", chizer_isFileEncrypted, METH_VARARGS, "Judge file is Encrypted or not"},
     {"isChunksEncrypted", chizer_isChunksEncrypted, METH_VARARGS, "Judge chunks are Encrypted or not"},
-#ifdef 0
+#if 0
     {"getFileChi", chizer_getFileChi, METH_VARARGS, "get chi square distribution of file"},
     {"getHistogram", chizer_getHistogram, METH_VARARGS, "get histogram"},
     {"calcChi", chizer_calcChi, METH_VARARGS, "calculate chi"},
@@ -82,6 +82,7 @@ static PyMethodDef chizerMethods[] = {
     {NULL, NULL, 0, NULL}
 };
 
+#if PY_MAJOR_VERSION >= 3
 static struct PyModuleDef chizerModule = {
    PyModuleDef_HEAD_INIT,
    "chizer",   /* name of module */
@@ -90,7 +91,15 @@ static struct PyModuleDef chizerModule = {
                 or -1 if the module keeps state in global variables. */
    chizerMethods
 };
+#endif
 
+
+#if PY_MAJOR_VERSION >= 3
 PyMODINIT_FUNC PyInit_chizer(void){
-    return PyModule_Create(&chizerModule);
+     return PyModule_Create(&chizerModule);
 }
+#else
+void initchizer(void) {
+    Py_InitModule("chizer", chizerMethods);
+}
+#endif

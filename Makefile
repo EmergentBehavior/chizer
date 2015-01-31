@@ -7,4 +7,4 @@ test: chizer.c test.c chizer.h
 python: chizer.c chizer.h chizer_python.c setup.py
 	python setup.py build_ext -i
 clean:
-	rm *.o test
+	rm *.o test *.so
