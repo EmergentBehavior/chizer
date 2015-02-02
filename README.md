@@ -5,7 +5,7 @@
 Chizer is a tool which uses a chi-square test to determine if a file is encrypted or not. Chizer is available as a C program or Python module.
 
 ## Theory & Evaluation
-Information relating to the theory and efficacy of this module are available [here](https://github.com/storj-jp/chizer/blob/master/evaluation.md). 
+Information relating to the theory and efficacy of this module are available [here](https://github.com/storj-jp/chizer/blob/master/EVALUATION.md). 
 
 ## Requirements
 Chizer only requires `gcc`. However, the python modules require that either Python 2.x or 3.x is installed.
