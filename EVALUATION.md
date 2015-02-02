@@ -158,7 +158,7 @@ Using the following test environment...
     * CPU: AMD Athlon(tm) 64 X2 Dual Core Processor 3800+
     * Memory: 3 GB
 
-...a 30 MB data shard can be tested in approximately 0.9 seconds:
+...a 30 MB data shard can be tested in approximately 0.8 seconds:
 
 ```
 $ time ./chizer data/ac59ab5a282afd3de22062c7d62b5367
