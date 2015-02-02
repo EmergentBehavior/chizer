@@ -38,8 +38,9 @@ double calcChi(long *hist,int bytes){
     double expected=(double)bytes/HIST_SIZE;
     for(i=0;i<HIST_SIZE;i++){
         double diff=hist[i]-expected;
-        chi+=(diff*diff)/expected;
+        chi+=(diff*diff);
     }
+    chi/=expected;
     return chi;
 }
 
