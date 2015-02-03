@@ -97,11 +97,13 @@ int isChunksEncrypted(char *fname){
             for(j=0;j<HIST_SIZE;j++) hist[j]=0;
             getHistogram(buffer+i,hist,bytes);
             double chi=calcChi(hist,bytes);
+            if(chi>=THRESHOLD_CHUNK) suspects++;
 #ifdef DEBUG
             fprintf(fout,"%ld,%lf,%s\n",no,chi,(chi<THRESHOLD_CHUNK? "o":"x"));
             no++;
+#else
+            if(suspects>=THRESHOLD_SUSPECTS) return 0;
 #endif
-            if(chi>=THRESHOLD_CHUNK) suspects++;
         }
     }
     fclose(fp);
