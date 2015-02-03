@@ -1,7 +1,7 @@
 # Encrypted File Detection via the Chi-Square Test
 
 ## Outline
-The goal of this program is to determine if a specified file is encrypted or not. Encrypted files contain more random bytes than raw or compressed files. For the purpose of this program, randomess is measured using the (chi-square test)[http://en.wikipedia.org/wiki/Chi-square_test].
+The goal of this program is to determine if a specified file is encrypted or not. Encrypted files contain more random bytes than raw or compressed files. For the purpose of this program, randomess is measured using the [chi-square test](http://en.wikipedia.org/wiki/Chi-square_test).
 
 If the bytes composing a file are completely random, the expected incidence rate of `0x00` can be calculated using the formula `(total bytes)/256` (256 is used because byte values may be between 0 and 255). If the bytes are not random, the rate will vary considerably.
 
@@ -158,16 +158,16 @@ Using the following test environment...
     * CPU: AMD Athlon(tm) 64 X2 Dual Core Processor 3800+
     * Memory: 3 GB
 
-...a 30 MB data shard can be tested in approximately 1.5 seconds:
+...a 30 MB data shard can be tested in approximately 0.8 seconds:
 
 ```
- time ./chizer data/ac59ab5a282afd3de22062c7d62b5367 
+$ time ./chizer data/ac59ab5a282afd3de22062c7d62b5367
 ;-)     Whole File is encrypted.
 ;-)     chunks are encrypted.
 
-real    0m1.404s
-user    0m1.337s
-sys     0m0.050s
+real    0m0.863s
+user    0m0.767s
+sys     0m0.043s
 ```
 
 ## References
