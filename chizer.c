@@ -48,7 +48,7 @@ double getFileChi(char *fname){
     FILE *fp=NULL;
     int i=0;
     long hist[HIST_SIZE];
-    for(i=0;i<HIST_SIZE;i++) hist[i]=0;
+    memset(hist, 0, HIST_SIZE);
 
     if( (fp=fopen(fname,"rb"))==NULL){
         fprintf(stderr,"cannot open %s\n",fname);
@@ -94,7 +94,7 @@ int isChunksEncrypted(char *fname){
         for(i=0;i<bytes_read;i+=CHUNK_SIZE){
             long bytes=bytes_read-i>CHUNK_SIZE?CHUNK_SIZE:bytes_read-i;
             int j=0;
-            for(j=0;j<HIST_SIZE;j++) hist[j]=0;
+            memset(hist, 0, HIST_SIZE);
             getHistogram(buffer+i,hist,bytes);
             double chi=calcChi(hist,bytes);
             if(chi>=THRESHOLD_CHUNK) suspects++;
